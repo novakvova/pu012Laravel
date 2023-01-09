@@ -13,10 +13,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $prodcuts = Product::all();
-        return response()->json($prodcuts,  200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+        $input = $request->all();
+        $name = isset($input['name']) ? $input["name"] : "";
+        if(!empty($name))
+        {
+            $prodcuts = Product::where('name', 'LIKE', "%$name%")->paginate(2);
+            return response()->json($prodcuts,  200,
+                ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+                JSON_UNESCAPED_UNICODE);
+        }
+        $prodcuts = Product::paginate(2);
+        return response()->json($prodcuts,  200,
+            ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
             JSON_UNESCAPED_UNICODE);
     }
 

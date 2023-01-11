@@ -1,4 +1,4 @@
-import { ProductState, ProductActionTypes, GetProductAction, ProductActions } from './types';
+import { ProductState, ProductActionTypes, ProductActions } from './types';
 
 const initialState: ProductState = {
   list: [],
@@ -11,7 +11,7 @@ const initialState: ProductState = {
 export const productReducer = (state=initialState, action: ProductActions ) : ProductState => {
     switch(action.type) {
         case ProductActionTypes.PRODUCT_LIST: {
-            console.log("Payload:", action.payload);
+            //console.log("Payload:", action.payload);
             return {
                 ...state,
                 ...action.payload,

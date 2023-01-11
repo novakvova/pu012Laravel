@@ -1,8 +1,8 @@
 import { Dispatch } from "react";
 import http from "../../../http_common";
-import { IPorductResponse, ProductActions, ProductActionTypes } from "./types";
+import { IPorductResponse, ISearchProduct, ProductActions, ProductActionTypes } from "./types";
 
-export const GetProductList = () => async(dispatch: Dispatch<ProductActions>) => {
+export const GetProductList = (search: ISearchProduct) => async(dispatch: Dispatch<ProductActions>) => {
     try{
         const response = await http.get<IPorductResponse>('/api/products');
         const {data} = response;
@@ -11,7 +11,7 @@ export const GetProductList = () => async(dispatch: Dispatch<ProductActions>) =>
             type: ProductActionTypes.PRODUCT_LIST,
             payload: {
                 list: [...data.data],
-                count_page: data.current_page,
+                count_page: data.last_page,
                 total: data.total,
                 current_page: data.current_page,
                 error_message: ""

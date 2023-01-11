@@ -1,23 +1,18 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import http from "../../http_common";
-import { IProductItem } from "./store/types";
 
 const HomePage = () => {
   const {list} = useTypedSelector(store=>store.products);
 
-  const dispatch = useDispatch();
+  const {GetProductList} = useActions();
 
   useEffect(() => {
-    http.get<Array<IProductItem>>('/api/products')
-      .then(resp=> {
-        console.log("Resp Data ",resp);
-        dispatch({type:"PRODUCT_LIST", payload: resp.data});
-      });
+    GetProductList();
   },[]);
 
-  const data = list.map(product =>
+  const data_content = list.map(product =>
     <tr key={product.id}>
       <td>{product.id}</td>
       <td>{product.name}</td>
@@ -37,7 +32,7 @@ const HomePage = () => {
             </tr>
           </thead>
           <tbody>
-            {data}
+            {data_content}
           </tbody>
         </table>
       </div>

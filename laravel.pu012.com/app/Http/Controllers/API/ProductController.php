@@ -9,6 +9,29 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
+     * @OA\Get(
+     *     tags={"Product"},
+     *     path="/api/products",
+     *     @OA\Parameter(
+     *      name="page",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *     @OA\Parameter(
+     *      name="name",
+     *      in="query",
+     *      required=false,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *     @OA\Response(response="200", description="List Products.")
+     * )
+     */
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

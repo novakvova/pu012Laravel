@@ -4,7 +4,9 @@ import { IPorductResponse, ISearchProduct, ProductActions, ProductActionTypes } 
 
 export const GetProductList = (search: ISearchProduct) => async(dispatch: Dispatch<ProductActions>) => {
     try{
-        const response = await http.get<IPorductResponse>('/api/products');
+        const response = await http.get<IPorductResponse>('/api/products', {
+            params: search
+        });
         const {data} = response;
         console.log("data", data);
         dispatch({

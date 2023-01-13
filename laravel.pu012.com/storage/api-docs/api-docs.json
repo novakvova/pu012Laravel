@@ -13,12 +13,32 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/": {
+        "/api/products": {
             "get": {
-                "description": "Home page",
+                "tags": [
+                    "Product"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
-                    "default": {
-                        "description": "Welcome page"
+                    "200": {
+                        "description": "List Products."
                     }
                 }
             }

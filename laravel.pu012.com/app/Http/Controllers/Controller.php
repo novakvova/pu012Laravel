@@ -22,9 +22,25 @@ use Illuminate\Routing\Controller as BaseController;
  * )
  *
  * @OA\Get(
- *     path="/",
- *     description="Home page",
- *     @OA\Response(response="default", description="Welcome page")
+ *     tags={"Product"},
+ *     path="/api/products",
+ *     @OA\Parameter(
+ *      name="page",
+ *      in="query",
+ *      required=true,
+ *      @OA\Schema(
+ *           type="string"
+ *      )
+ *   ),
+ *     @OA\Parameter(
+ *      name="name",
+ *      in="query",
+ *      required=false,
+ *      @OA\Schema(
+ *           type="string"
+ *      )
+ *   ),
+ *     @OA\Response(response="200", description="List Products.")
  * )
  */
 class Controller extends BaseController

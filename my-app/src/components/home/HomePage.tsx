@@ -237,6 +237,7 @@ const HomePage = () => {
               type="text"
               id="name"
               name="name"
+              value={formik.values.name}
               onChange={formik.handleChange}
               className="form-control"
               placeholder="пошук по імені"

@@ -46,7 +46,7 @@ const HomePage = () => {
 
   const pagination = buttons.map((page) => {
     if (current_page <= 5) {
-      if (page == 8 && count_page != page) {
+      if (page === 8 && count_page != page) {
         return (
           <li key={page} className="page-item">
             <Link
@@ -105,7 +105,7 @@ const HomePage = () => {
       if(range<=4) {
 
         const dot = current_page - (7 - range);
-        if (page == dot) {
+        if (page === dot) {
           return (
             <li key={page} className="page-item">
               <Link
@@ -143,8 +143,71 @@ const HomePage = () => {
             </li>
           );
         }
-        
       }
+      else if (range>=5)
+      {
+        const dotleft = current_page - 3;
+        const dotright = current_page + 3;
+        if (page === dotleft || page === dotright) {
+          return (
+            <li key={page} className="page-item">
+              <Link
+                className={classNames("page-link", {
+                  active: page === current_page,
+                })}
+                onClick={() => {
+                  setSearch({ ...search, page: page });
+                }}
+                to={
+                  "?" + qs.stringify(filterNonNull({ ...search, page: page }))
+                }
+              >
+                ...
+              </Link>
+            </li>
+          );
+        } 
+        if (page > dotleft && page < dotright) {
+          return (
+            <li key={page} className="page-item">
+              <Link
+                className={classNames("page-link", {
+                  active: page === current_page,
+                })}
+                onClick={() => {
+                  setSearch({ ...search, page: page });
+                }}
+                to={
+                  "?" + qs.stringify(filterNonNull({ ...search, page: page }))
+                }
+              >
+                {page}
+              </Link>
+            </li>
+          );
+        }
+
+        if (page===count_page) {
+          return (
+            <li key={page} className="page-item">
+              <Link
+                className={classNames("page-link", {
+                  active: page === current_page,
+                })}
+                onClick={() => {
+                  setSearch({ ...search, page: page });
+                }}
+                to={
+                  "?" + qs.stringify(filterNonNull({ ...search, page: page }))
+                }
+              >
+                {page}
+              </Link>
+            </li>
+          );
+        }
+      }
+
     }
   });
 

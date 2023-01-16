@@ -44,19 +44,109 @@ const HomePage = () => {
     buttons.push(i);
   }
 
-  const pagination = buttons.map((page) => (
-    <li key={page} className="page-item">
-      <Link
-        className={classNames("page-link", { active: page === current_page })}
-        onClick={() => {
-          setSearch({ ...search, page: page });
-        }}
-        to={"?" + qs.stringify(filterNonNull({ ...search, page: page }))}
-      >
-        {page}
-      </Link>
-    </li>
-  ));
+  const pagination = buttons.map((page) => {
+    if (current_page <= 5) {
+      if (page == 8 && count_page != page) {
+        return (
+          <li key={page} className="page-item">
+            <Link
+              className={classNames("page-link", {
+                active: page === current_page,
+              })}
+              onClick={() => {
+                setSearch({ ...search, page: page });
+              }}
+              to={"?" + qs.stringify(filterNonNull({ ...search, page: page }))}
+            >
+              ...
+            </Link>
+          </li>
+        );
+      }
+      if (page <= 7 || page == count_page) {
+        return (
+          <li key={page} className="page-item">
+            <Link
+              className={classNames("page-link", {
+                active: page === current_page,
+              })}
+              onClick={() => {
+                setSearch({ ...search, page: page });
+              }}
+              to={"?" + qs.stringify(filterNonNull({ ...search, page: page }))}
+            >
+              {page}
+            </Link>
+          </li>
+        );
+      }
+    }
+    else if(current_page>5)
+    {
+      if(page==1)
+      {
+        return (
+          <li key={page} className="page-item">
+            <Link
+              className={classNames("page-link", {
+                active: page === current_page,
+              })}
+              onClick={() => {
+                setSearch({ ...search, page: page });
+              }}
+              to={"?" + qs.stringify(filterNonNull({ ...search, page: page }))}
+            >
+              {page}
+            </Link>
+          </li>
+        );
+      }
+      const range = count_page-current_page; //10 - 6 = 4, 10-7=3
+      if(range<=4) {
+
+        const dot = current_page - (7 - range);
+        if (page == dot) {
+          return (
+            <li key={page} className="page-item">
+              <Link
+                className={classNames("page-link", {
+                  active: page === current_page,
+                })}
+                onClick={() => {
+                  setSearch({ ...search, page: page });
+                }}
+                to={
+                  "?" + qs.stringify(filterNonNull({ ...search, page: page }))
+                }
+              >
+                ...
+              </Link>
+            </li>
+          );
+        } 
+        else if (current_page >= count_page-5 && page>dot) {
+          return (
+            <li key={page} className="page-item">
+              <Link
+                className={classNames("page-link", {
+                  active: page === current_page,
+                })}
+                onClick={() => {
+                  setSearch({ ...search, page: page });
+                }}
+                to={
+                  "?" + qs.stringify(filterNonNull({ ...search, page: page }))
+                }
+              >
+                {page}
+              </Link>
+            </li>
+          );
+        }
+        
+      }
+    }
+  });
 
   const onSubmit = (values: ISearchProduct) => {
     setSearchParams(qs.stringify(filterNonNull(values)));

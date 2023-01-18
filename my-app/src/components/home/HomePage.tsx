@@ -28,9 +28,15 @@ const HomePage = () => {
   //console.log("Search Product params", search);
 
   useEffect(() => {
-    console.log("Search: ", search);
-    GetProductList(search);
-  }, [search]);
+    const find: ISearchProduct ={
+      name: searchParams.get("name") || "",
+      page: searchParams.get("page") || 1,
+    }
+    GetProductList(find);
+    setSearch(find);
+    //clear formik data
+    formik.values.name=find.name;
+  }, [searchParams]);
 
   const data_content = list.map((product) => (
     <tr key={product.id}>
